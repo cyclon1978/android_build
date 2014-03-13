@@ -1465,6 +1465,10 @@ ifdef BOARD_RAMDISK_OFFSET
 endif
 ifeq ($(strip $(BOARD_KERNEL_SEPARATED_DT)),true)
 	$(hide) echo "$(INSTALLED_DTIMAGE_TARGET)" > $(zip_root)/RECOVERY/dt_args
+ifdef TARGET_USE_BUILT_BOOTIMAGE
+	@# Copy boot.img to bootable_images
+	$(hide) mkdir -p $(zip_root)/BOOTABLE_IMAGES
+	$(hide) $(ACP) $(INSTALLED_BOOTIMAGE_TARGET) $(zip_root)/BOOTABLE_IMAGES
 endif
 	@# Components of the boot image
 	$(hide) mkdir -p $(zip_root)/BOOT
